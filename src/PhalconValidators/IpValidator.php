@@ -12,8 +12,8 @@ class IpValidator extends Validator implements ValidatorInterface
     /**
      * Executes the validation
      *
-     * @param  Validation  $validator
-     * @param  string  $attribute
+     * @param  Validation $validator
+     * @param  string $attribute
      *
      * @return boolean
      */

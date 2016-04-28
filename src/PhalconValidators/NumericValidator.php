@@ -14,8 +14,8 @@ class NumericValidator extends Validator implements ValidatorInterface
      * 'min' : input value must not be lower than it;
      * 'max' : input value must not be higher than it.
      *
-     * @param  Validation  $validator
-     * @param  string  $attribute
+     * @param  Validation $validator
+     * @param  string $attribute
      *
      * @return boolean
      */
@@ -23,7 +23,7 @@ class NumericValidator extends Validator implements ValidatorInterface
     {
         $value = $validator->getValue($attribute);
 
-        if(!preg_match('/^([0-9])+$/u', $value)) {
+        if (!preg_match('/^([0-9])+$/u', $value)) {
 
             $message = $this->getOption('message',
                 'The value can contain only numeric (0-9) characters');
@@ -33,7 +33,7 @@ class NumericValidator extends Validator implements ValidatorInterface
             return false;
         }
 
-        if($min = (int)$this->getOption('min')) {
+        if ($min = (int)$this->getOption('min')) {
             if ($value < $min) {
                 $messageMin = $this->getOption('messageMinimum',
                     'The value must be at least ' . $min);
@@ -44,7 +44,7 @@ class NumericValidator extends Validator implements ValidatorInterface
             }
         }
 
-        if($max = (int)$this->getOption('max')) {
+        if ($max = (int)$this->getOption('max')) {
             if ($value < $max) {
                 $messageMax = $this->getOption('messageMaximum',
                     'The value must be lower than ' . $max);

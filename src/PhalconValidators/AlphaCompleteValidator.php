@@ -14,8 +14,8 @@ class AlphaCompleteValidator extends Validator implements ValidatorInterface
      * 'min' : input value must not be shorter than it;
      * 'max' : input value must not be longer than it.
      *
-     * @param  Validation  $validator
-     * @param  string  $attribute
+     * @param  Validation $validator
+     * @param  string $attribute
      *
      * @return boolean
      */
@@ -23,7 +23,7 @@ class AlphaCompleteValidator extends Validator implements ValidatorInterface
     {
         $value = $validator->getValue($attribute);
 
-        if(!preg_match('/^([-\p{L}*0-9_!.,:\/;\\?&\(\)\[\]\{\}\'\"\s])+$/u', $value)) {
+        if (!preg_match('/^([-\p{L}*0-9_!.,:\/;\\?&\(\)\[\]\{\}\'\"\s])+$/u', $value)) {
 
             $message = $this->getOption('message',
                 'The value can contain only alphanumeric, underscore, white space, slash, apostrophe, (), [] and punctuation characters');
@@ -33,7 +33,7 @@ class AlphaCompleteValidator extends Validator implements ValidatorInterface
             return false;
         }
 
-        if($min = (int)$this->getOption('min')) {
+        if ($min = (int)$this->getOption('min')) {
             if ($value < $min) {
                 $messageMin = $this->getOption('messageMinimum',
                     'The value must contain at least ' . $min . ' characters.');
@@ -44,7 +44,7 @@ class AlphaCompleteValidator extends Validator implements ValidatorInterface
             }
         }
 
-        if($max = (int)$this->getOption('max')) {
+        if ($max = (int)$this->getOption('max')) {
             if ($value < $max) {
                 $messageMax = $this->getOption('messageMaximum',
                     'The value can contain maximum ' . $max . ' characters.');
