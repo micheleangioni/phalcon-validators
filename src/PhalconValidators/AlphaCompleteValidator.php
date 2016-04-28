@@ -25,25 +25,32 @@ class AlphaCompleteValidator extends Validator implements ValidatorInterface
 
         if(!preg_match('/^([-\p{L}*0-9_!.,:\/;\\?&\(\)\[\]\{\}\'\"\s])+$/u', $value)) {
 
-            $message = $this->getOption('message');
-
-            if (!$message) {
-                $message = 'The value can contain only alphanumeric, underscore, white space, slash, apostrophe, (), [] and punctuation characters';
-            }
+            $message = $this->getOption('message',
+                'The value can contain only alphanumeric, underscore, white space, slash, apostrophe, (), [] and punctuation characters');
 
             $validator->appendMessage(new Message($message, $attribute, 'AlphaComplete'));
 
             return false;
         }
 
-        if($min = $this->getOption('min')) {
-            if (strlen($value) < $min) {
+        if($min = (int)$this->getOption('min')) {
+            if ($value < $min) {
+                $messageMin = $this->getOption('messageMinimum',
+                    'The value must contain at least ' . $min . ' characters.');
+
+                $validator->appendMessage(new Message($messageMin, $attribute, 'AlphaComplete'));
+
                 return false;
             }
         }
 
-        if($max = $this->getOption('max')) {
-            if (strlen($value) > $max) {
+        if($max = (int)$this->getOption('max')) {
+            if ($value < $max) {
+                $messageMax = $this->getOption('messageMaximum',
+                    'The value can contain maximum ' . $max . ' characters.');
+
+                $validator->appendMessage(new Message($messageMax, $attribute, 'AlphaComplete'));
+
                 return false;
             }
         }

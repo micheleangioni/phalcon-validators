@@ -1,6 +1,6 @@
 <?php
 
-namespace Learnph\Common\Services;
+namespace MicheleAngioni\PhalconValidators;
 
 use Phalcon\Validation;
 use Phalcon\Validation\Message;
@@ -25,25 +25,32 @@ class NumericValidator extends Validator implements ValidatorInterface
 
         if(!preg_match('/^([0-9])+$/u', $value)) {
 
-            $message = $this->getOption('message');
-
-            if (!$message) {
-                $message = 'The value can contain only numeric (0-9) characters';
-            }
+            $message = $this->getOption('message',
+                'The value can contain only numeric (0-9) characters');
 
             $validator->appendMessage(new Message($message, $attribute, 'Numeric'));
 
             return false;
         }
 
-        if($min = $this->getOption('min')) {
+        if($min = (int)$this->getOption('min')) {
             if ($value < $min) {
+                $messageMin = $this->getOption('messageMinimum',
+                    'The value must be at least ' . $min);
+
+                $validator->appendMessage(new Message($messageMin, $attribute, 'Numeric'));
+
                 return false;
             }
         }
 
-        if($max = $this->getOption('max')) {
-            if ($value > $max) {
+        if($max = (int)$this->getOption('max')) {
+            if ($value < $max) {
+                $messageMax = $this->getOption('messageMaximum',
+                    'The value must be lower than ' . $max);
+
+                $validator->appendMessage(new Message($messageMax, $attribute, 'Numeric'));
+
                 return false;
             }
         }

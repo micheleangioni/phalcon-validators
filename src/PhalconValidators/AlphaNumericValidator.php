@@ -52,14 +52,24 @@ class AlphaNumericValidator extends Validator implements ValidatorInterface
             return false;
         }
 
-        if($min = $this->getOption('min')) {
-            if (strlen($value) < $min) {
+        if($min = (int)$this->getOption('min')) {
+            if ($value < $min) {
+                $messageMin = $this->getOption('messageMinimum',
+                    'The value must contain at least ' . $min . ' characters.');
+
+                $validator->appendMessage(new Message($messageMin, $attribute, 'AlphaNumeric'));
+
                 return false;
             }
         }
 
-        if($max = $this->getOption('max')) {
-            if (strlen($value) > $max) {
+        if($max = (int)$this->getOption('max')) {
+            if ($value < $max) {
+                $messageMax = $this->getOption('messageMaximum',
+                    'The value can contain maximum ' . $max . ' characters.');
+
+                $validator->appendMessage(new Message($messageMax, $attribute, 'AlphaNumeric'));
+
                 return false;
             }
         }
