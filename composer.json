@@ -1,0 +1,26 @@
+{
+    "name": "michele-angioni/phalcon-validators",
+    "description": "New advanced validators for Phalcon.",
+    "keywords": ["phalcon", "validators"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Michele Angioni",
+            "email": "michele.angioni@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5",
+        "ext-phalcon": ">=2.0.0"
+    },
+    "require-dev": {
+        "phalcon/incubator": "dev-master",
+        "phpunit/phpunit": "^4.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "MicheleAngioni\\PhalconValidators\\": "src/PhalconValidators"
+        }
+    },
+    "minimum-stability": "dev"
+}
