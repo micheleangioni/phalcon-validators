@@ -53,7 +53,7 @@ class AlphaNumericValidator extends Validator implements ValidatorInterface
         }
 
         if ($min = (int)$this->getOption('min')) {
-            if ($value < $min) {
+            if (strlen($value) < $min) {
                 $messageMin = $this->getOption('messageMinimum',
                     'The value must contain at least ' . $min . ' characters.');
 
@@ -64,7 +64,7 @@ class AlphaNumericValidator extends Validator implements ValidatorInterface
         }
 
         if ($max = (int)$this->getOption('max')) {
-            if ($value > $max) {
+            if (strlen($value) > $max) {
                 $messageMax = $this->getOption('messageMaximum',
                     'The value can contain maximum ' . $max . ' characters.');
 
