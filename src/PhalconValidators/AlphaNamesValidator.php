@@ -56,7 +56,7 @@ class AlphaNamesValidator extends Validator implements ValidatorInterface
         }
 
         if ($max = (int)$this->getOption('max')) {
-            if ($value < $max) {
+            if ($value > $max) {
                 $messageMax = $this->getOption('messageMaximum',
                     'The value can contain maximum ' . $max . ' characters.');
 

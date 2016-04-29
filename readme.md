@@ -56,7 +56,7 @@ Minimum and maximum values can be specified.
                 [
                     'min' => 2,                                                     // Optional
                     'max' => 50,                                                    // Optional     
-                    'message' => 'Only numeric (0-9) characters are allowed.'       // Optional
+                    'message' => 'Only numeric (0-9) characters are allowed.',      // Optional
                     'messageMinimum' => 'The value must be at least 2',             // Optional
                     'messageMaximum' => 'The value must be lower than 50'           // Optional
                 ]
@@ -89,7 +89,7 @@ Minimum and maximum string lengths can be specified.
                     'underscore' => true,                                                       // Optional, default false
                     'min' => 6,                                                                 // Optional
                     'max' => 30,                                                                // Optional     
-                    'message' => 'Validation failed.'                                           // Optional
+                    'message' => 'Validation failed.',                                          // Optional
                     'messageMinimum' => 'The value must contain at least 6 characters.',        // Optional
                     'messageMaximum' => 'The value can contain maximum 30 characters.'          // Optional
                 ]
@@ -122,7 +122,7 @@ Minimum and maximum string lengths can be specified.
                     'numbers' => true,                                                          // Optional, default false
                     'min' => 6,                                                                 // Optional
                     'max' => 30,                                                                // Optional     
-                    'message' => 'Validation failed.'                                           // Optional
+                    'message' => 'Validation failed.',                                          // Optional
                     'messageMinimum' => 'The value must contain at least 6 characters.',        // Optional
                     'messageMaximum' => 'The value can contain maximum 30 characters.'          // Optional
                 ]
@@ -153,7 +153,7 @@ Minimum and maximum string lengths can be specified.
                 [
                     'min' => 6,                                                                 // Optional
                     'max' => 30,                                                                // Optional     
-                    'message' => 'Validation failed.'                                           // Optional
+                    'message' => 'Validation failed.',                                          // Optional
                     'messageMinimum' => 'The value must contain at least 6 characters.',        // Optional
                     'messageMaximum' => 'The value can contain maximum 30 characters.'          // Optional
                 ]

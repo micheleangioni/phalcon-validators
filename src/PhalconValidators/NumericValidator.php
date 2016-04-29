@@ -45,7 +45,7 @@ class NumericValidator extends Validator implements ValidatorInterface
         }
 
         if ($max = (int)$this->getOption('max')) {
-            if ($value < $max) {
+            if ($value > $max) {
                 $messageMax = $this->getOption('messageMaximum',
                     'The value must be lower than ' . $max);
 
