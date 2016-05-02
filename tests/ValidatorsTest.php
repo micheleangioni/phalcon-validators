@@ -138,10 +138,84 @@ class ValidatorsTest extends TestCase
         $this->assertEquals(0, count($messages));
     }
 
+    public function testAlphaNumericValidatorFailingWhiteSpace()
+    {
+        $data['text'] = '0123456789 abcdefghijklmnopqrstuvz ñ _';
+
+        $validation = new Validation();
+
+        $validation->add(
+            'text',
+            new \MicheleAngioni\PhalconValidators\AlphaNumericValidator (
+                [
+                    'whiteSpace' => false,                                                      // Optional, default false
+                    'underscore' => true,                                                       // Optional, default false
+                    'min' => 5,                                                                 // Optional
+                    'max' => 100,                                                               // Optional
+                    'message' => 'Validation failed.',                                          // Optional
+                    'messageMinimum' => 'The value must contain at least 5 characters.',        // Optional
+                    'messageMaximum' => 'The value can contain maximum 100 characters.'         // Optional
+                ]
+            )
+        );
+
+        $messages = $validation->validate($data);
+        $this->assertEquals(1, count($messages));
+    }
+
+    public function testAlphaNumericValidatorFailingUnderscope()
+    {
+        $data['text'] = '0123456789 abcdefghijklmnopqrstuvz ñ _';
+
+        $validation = new Validation();
+
+        $validation->add(
+            'text',
+            new \MicheleAngioni\PhalconValidators\AlphaNumericValidator (
+                [
+                    'whiteSpace' => true,                                                       // Optional, default false
+                    'underscore' => false,                                                      // Optional, default false
+                    'min' => 5,                                                                 // Optional
+                    'max' => 100,                                                               // Optional
+                    'message' => 'Validation failed.',                                          // Optional
+                    'messageMinimum' => 'The value must contain at least 5 characters.',        // Optional
+                    'messageMaximum' => 'The value can contain maximum 100 characters.'         // Optional
+                ]
+            )
+        );
+
+        $messages = $validation->validate($data);
+        $this->assertEquals(1, count($messages));
+    }
+
+    public function testAlphaNumericValidatorFailingLength()
+    {
+        $data['text'] = '0123456789 abcdefghijklmnopqrstuvz ñ _';
+
+        $validation = new Validation();
+
+        $validation->add(
+            'text',
+            new \MicheleAngioni\PhalconValidators\AlphaNumericValidator (
+                [
+                    'whiteSpace' => true,                                                       // Optional, default false
+                    'underscore' => false,                                                      // Optional, default false
+                    'min' => 5,                                                                 // Optional
+                    'max' => 10,                                                               // Optional
+                    'message' => 'Validation failed.',                                          // Optional
+                    'messageMinimum' => 'The value must contain at least 5 characters.',        // Optional
+                    'messageMaximum' => 'The value can contain maximum 100 characters.'         // Optional
+                ]
+            )
+        );
+
+        $messages = $validation->validate($data);
+        $this->assertEquals(1, count($messages));
+    }
+
     public function testNamesValidatorOk()
     {
-        /*
-        $data['text'] = 'Richard Feynman _';
+        $data['text'] = 'Richard Feynman';
 
         $validation = new Validation();
 
@@ -160,13 +234,171 @@ class ValidatorsTest extends TestCase
         );
 
         $messages = $validation->validate($data);
-
-        foreach($messages as $message) {
-            var_dump($message);
-        }
-
         $this->assertEquals(0, count($messages));
-        */
     }
 
+    public function testNamesValidatorOkNumbers()
+    {
+        $data['text'] = 'R1ch4rd F3ynm4n';
+
+        $validation = new Validation();
+
+        $validation->add(
+            'text',
+            new \MicheleAngioni\PhalconValidators\AlphaNamesValidator (
+                [
+                    'numbers' => true,                                                          // Optional, default false
+                    'min' => 5,                                                                 // Optional
+                    'max' => 100,                                                               // Optional
+                    'message' => 'Validation failed.',                                          // Optional
+                    'messageMinimum' => 'The value must contain at least 5 characters.',        // Optional
+                    'messageMaximum' => 'The value can contain maximum 100 characters.'         // Optional
+                ]
+            )
+        );
+
+        $messages = $validation->validate($data);
+        $this->assertEquals(0, count($messages));
+    }
+
+    public function testNamesValidatorFailingNumbers()
+    {
+        $data['text'] = 'R1ch4rd F3ynm4n';
+
+        $validation = new Validation();
+
+        $validation->add(
+            'text',
+            new \MicheleAngioni\PhalconValidators\AlphaNamesValidator (
+                [
+                    'numbers' => false,                                                         // Optional, default false
+                    'min' => 5,                                                                 // Optional
+                    'max' => 100,                                                               // Optional
+                    'message' => 'Validation failed.',                                          // Optional
+                    'messageMinimum' => 'The value must contain at least 5 characters.',        // Optional
+                    'messageMaximum' => 'The value can contain maximum 100 characters.'         // Optional
+                ]
+            )
+        );
+
+        $messages = $validation->validate($data);
+        $this->assertEquals(1, count($messages));
+    }
+
+    public function testNamesValidatorFailingLength()
+    {
+        $data['text'] = 'R1ch4rd F3ynm4n';
+
+        $validation = new Validation();
+
+        $validation->add(
+            'text',
+            new \MicheleAngioni\PhalconValidators\AlphaNamesValidator (
+                [
+                    'numbers' => false,                                                         // Optional, default false
+                    'min' => 5,                                                                 // Optional
+                    'max' => 10,                                                               // Optional
+                    'message' => 'Validation failed.',                                          // Optional
+                    'messageMinimum' => 'The value must contain at least 5 characters.',        // Optional
+                    'messageMaximum' => 'The value can contain maximum 100 characters.'         // Optional
+                ]
+            )
+        );
+
+        $messages = $validation->validate($data);
+        $this->assertEquals(1, count($messages));
+    }
+
+    public function testNamesValidatorFailingSymbols()
+    {
+        $data['text'] = 'R1ch4rd F3ynm4n !';
+
+        $validation = new Validation();
+
+        $validation->add(
+            'text',
+            new \MicheleAngioni\PhalconValidators\AlphaNamesValidator (
+                [
+                    'numbers' => true,                                                         // Optional, default false
+                    'min' => 5,                                                                 // Optional
+                    'max' => 10,                                                               // Optional
+                    'message' => 'Validation failed.',                                          // Optional
+                    'messageMinimum' => 'The value must contain at least 5 characters.',        // Optional
+                    'messageMaximum' => 'The value can contain maximum 100 characters.'         // Optional
+                ]
+            )
+        );
+
+        $messages = $validation->validate($data);
+        $this->assertEquals(1, count($messages));
+    }
+
+    public function testAlphaCompleteValidatorOk()
+    {
+        $data['text'] = "0123456789 abc ñ () [] ' \" _ !? .,:;";
+
+        $validation = new Validation();
+
+        $validation->add(
+            'text',
+            new \MicheleAngioni\PhalconValidators\AlphaCompleteValidator (
+                [
+                    'min' => 5,                                                                 // Optional
+                    'max' => 100,                                                               // Optional
+                    'message' => 'Validation failed.',                                          // Optional
+                    'messageMinimum' => 'The value must contain at least 5 characters.',        // Optional
+                    'messageMaximum' => 'The value can contain maximum 100 characters.'         // Optional
+                ]
+            )
+        );
+
+        $messages = $validation->validate($data);
+        $this->assertEquals(0, count($messages));
+    }
+
+    public function testAlphaCompleteValidatorFailingSymbols()
+    {
+        $data['text'] = "0123456789 abc ñ () [] ' \" _ !? .,:; <";
+
+        $validation = new Validation();
+
+        $validation->add(
+            'text',
+            new \MicheleAngioni\PhalconValidators\AlphaCompleteValidator (
+                [
+                    'min' => 5,                                                                 // Optional
+                    'max' => 100,                                                               // Optional
+                    'message' => 'Validation failed.',                                          // Optional
+                    'messageMinimum' => 'The value must contain at least 5 characters.',        // Optional
+                    'messageMaximum' => 'The value can contain maximum 100 characters.'         // Optional
+                ]
+            )
+        );
+
+        $messages = $validation->validate($data);
+        $this->assertEquals(1, count($messages));
+    }
+
+    public function testAlphaCompleteValidatorFailingLength()
+    {
+        $data['text'] = "0123456789 abc ñ () [] ' \" _ !? .,:; ";
+
+        $validation = new Validation();
+
+        $validation->add(
+            'text',
+            new \MicheleAngioni\PhalconValidators\AlphaCompleteValidator (
+                [
+                    'min' => 5,                                                                 // Optional
+                    'max' => 10,                                                                // Optional
+                    'message' => 'Validation failed.',                                          // Optional
+                    'messageMinimum' => 'The value must contain at least 5 characters.',        // Optional
+                    'messageMaximum' => 'The value can contain maximum 10 characters.'          // Optional
+                ]
+            )
+        );
+
+        $messages = $validation->validate($data);
+        $this->assertEquals(1, count($messages));
+    }
 }
