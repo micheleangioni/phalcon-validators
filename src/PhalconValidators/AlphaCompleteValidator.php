@@ -23,7 +23,7 @@ class AlphaCompleteValidator extends Validator implements ValidatorInterface
     {
         $value = $validator->getValue($attribute);
 
-        if (!preg_match('/^([-\p{L}*0-9_!.,:\/;\\?&\(\)\[\]\{\}\'\"\s])+$/u', $value)) {
+        if (!preg_match('/^([-\p{L}*0-9_+!.,:\/;\\?&\(\)\[\]\{\}\'\"\s])+$/u', $value)) {
 
             $message = $this->getOption('message',
                 'The value can contain only alphanumeric, underscore, white space, slash, apostrophe, (), [] and punctuation characters');
