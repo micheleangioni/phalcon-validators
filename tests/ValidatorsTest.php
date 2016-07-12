@@ -6,6 +6,7 @@ use Phalcon\Validation;
 
 class ValidatorsTest extends TestCase
 {
+
     public function testIpValidatorOk()
     {
         $data['ip'] = '192.168.0.1';
@@ -111,6 +112,53 @@ class ValidatorsTest extends TestCase
 
         $messages = $validation->validate($data);
         $this->assertEquals(1, count($messages));
+    }
+
+    public function testNumericValidatorFailingComma()
+    {
+        $data['number'] = 5.3;
+
+        $validation = new Validation();
+
+        $validation->add(
+            'number',
+            new \MicheleAngioni\PhalconValidators\NumericValidator (
+                [
+                    'min' => 2,                                                     // Optional
+                    'max' => 10         ,                                           // Optional
+                    'message' => 'Only numeric (0-9) characters are allowed.',      // Optional
+                    'messageMinimum' => 'The value must be at least 2',             // Optional
+                    'messageMaximum' => 'The value must be lower than 10'           // Optional
+                ]
+            )
+        );
+
+        $messages = $validation->validate($data);
+        $this->assertEquals(1, count($messages));
+    }
+
+    public function testNumericValidatorOkFloat()
+    {
+        $data['number'] = 5.3;
+
+        $validation = new Validation();
+
+        $validation->add(
+            'number',
+            new \MicheleAngioni\PhalconValidators\NumericValidator (
+                [
+                    'allowFloat' => true,                                           // Optional, default: false
+                    'min' => 2,                                                     // Optional
+                    'max' => 10         ,                                           // Optional
+                    'message' => 'Only numeric (0-9) characters are allowed.',      // Optional
+                    'messageMinimum' => 'The value must be at least 2',             // Optional
+                    'messageMaximum' => 'The value must be lower than 10'           // Optional
+                ]
+            )
+        );
+
+        $messages = $validation->validate($data);
+        $this->assertEquals(0, count($messages));
     }
 
     public function testAlphaNumericValidatorOk()

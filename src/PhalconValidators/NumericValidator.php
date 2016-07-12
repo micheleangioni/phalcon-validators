@@ -11,6 +11,7 @@ class NumericValidator extends Validator implements ValidatorInterface
 {
     /**
      * Executes the validation. Allowed options:
+     * 'allowFloat' : allow . and , characters;
      * 'min' : input value must not be lower than it;
      * 'max' : input value must not be higher than it.
      *
@@ -23,14 +24,29 @@ class NumericValidator extends Validator implements ValidatorInterface
     {
         $value = $validator->getValue($attribute);
 
-        if (!preg_match('/^([0-9])+$/u', $value)) {
+        $allowFloat = (bool)$this->getOption('allowFloat');
+        $allowFloat = $allowFloat ? '.,' : '';
 
-            $message = $this->getOption('message',
-                'The value can contain only numeric (0-9) characters');
+        if ($allowFloat) {
+            if (!preg_match('/^([0-9.,])+$/u', (string)$value)) {
 
-            $validator->appendMessage(new Message($message, $attribute, 'Numeric'));
+                $message = $this->getOption('message',
+                    'The value can contain only numeric (0-9), comma(,) and dot(.) characters');
 
-            return false;
+                $validator->appendMessage(new Message($message, $attribute, 'Numeric'));
+
+                return false;
+            }
+        } else {
+            if (!preg_match('/^([0-9])+$/u', $value)) {
+
+                $message = $this->getOption('message',
+                    'The value can contain only numeric (0-9) characters');
+
+                $validator->appendMessage(new Message($message, $attribute, 'Numeric'));
+
+                return false;
+            }
         }
 
         if ($min = (int)$this->getOption('min')) {
