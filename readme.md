@@ -46,6 +46,8 @@ The IpValidator validates a valid ip address.
 The NumericValidator only allows for numeric (i.e. 0-9) characters.
 Minimum and maximum values can be specified.
 
+Optionally, it can support float values, that is allowing comma (,) and dot (.) characters.
+
         $data['number'] = $this->request->getPost('number');
 
         $validation = new Phalcon\Validation();
@@ -54,9 +56,11 @@ Minimum and maximum values can be specified.
             'number',
             new MicheleAngioni\PhalconValidators\NumericValidator (
                 [
+                    'allowFloat' => true,                                           // Optional, default: false
                     'min' => 2,                                                     // Optional
-                    'max' => 50,                                                    // Optional     
-                    'message' => 'Only numeric (0-9) characters are allowed.',      // Optional
+                    'min' => 2,                                                     // Optional
+                    'max' => 50,                                                    // Optional
+                    'message' => 'Only numeric (0-9,.) characters are allowed.',    // Optional
                     'messageMinimum' => 'The value must be at least 2',             // Optional
                     'messageMaximum' => 'The value must be lower than 50'           // Optional
                 ]
