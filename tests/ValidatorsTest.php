@@ -68,6 +68,53 @@ class ValidatorsTest extends TestCase
         $this->assertEquals(0, count($messages));
     }
 
+    public function testNumericValidatorOkSign()
+    {
+        $data['number'] = -10;
+
+        $validation = new Validation();
+
+        $validation->add(
+            'number',
+            new \MicheleAngioni\PhalconValidators\NumericValidator (
+                [
+                    'allowSign' => true,                                            // Optional, default false
+                    'min' => -20,                                                   // Optional
+                    'max' => 2000000000,                                            // Optional
+                    'message' => 'Only numeric (0-9) characters are allowed.',      // Optional
+                    'messageMinimum' => 'The value must be at least 1',             // Optional
+                    'messageMaximum' => 'The value must be lower than 12345678900'  // Optional
+                ]
+            )
+        );
+
+        $messages = $validation->validate($data);
+        $this->assertEquals(0, count($messages));
+    }
+
+    public function testNumericValidatorFailingSign()
+    {
+        $data['number'] = -10;
+
+        $validation = new Validation();
+
+        $validation->add(
+            'number',
+            new \MicheleAngioni\PhalconValidators\NumericValidator (
+                [
+                    'min' => 2,                                                     // Optional
+                    'max' => 10         ,                                           // Optional
+                    'message' => 'Only numeric (0-9) characters are allowed.',      // Optional
+                    'messageMinimum' => 'The value must be at least 2',             // Optional
+                    'messageMaximum' => 'The value must be lower than 10'           // Optional
+                ]
+            )
+        );
+
+        $messages = $validation->validate($data);
+        $this->assertEquals(1, count($messages));
+    }
+
     public function testNumericValidatorFailingMax()
     {
         $data['number'] = 1234567890;
@@ -137,7 +184,7 @@ class ValidatorsTest extends TestCase
         $this->assertEquals(1, count($messages));
     }
 
-    public function testNumericValidatorOkFloat()
+    public function testNumericValidatorFloatOk()
     {
         $data['number'] = 5.3;
 
@@ -159,6 +206,102 @@ class ValidatorsTest extends TestCase
 
         $messages = $validation->validate($data);
         $this->assertEquals(0, count($messages));
+    }
+
+    public function testNumericValidatorFloatOkSignPlus()
+    {
+        $data['number'] = +5.3;
+
+        $validation = new Validation();
+
+        $validation->add(
+            'number',
+            new \MicheleAngioni\PhalconValidators\NumericValidator (
+                [
+                    'allowSign' => true,                                           // Optional, default: false
+                    'allowFloat' => true,                                           // Optional, default: false
+                    'max' => 10         ,                                           // Optional
+                    'message' => 'Only numeric (0-9) characters are allowed.',      // Optional
+                    'messageMinimum' => 'The value must be at least 2',             // Optional
+                    'messageMaximum' => 'The value must be lower than 10'           // Optional
+                ]
+            )
+        );
+
+        $messages = $validation->validate($data);
+        $this->assertEquals(0, count($messages));
+    }
+
+    public function testNumericValidatorFloatOkSignMenus()
+    {
+        $data['number'] = -5.3;
+
+        $validation = new Validation();
+
+        $validation->add(
+            'number',
+            new \MicheleAngioni\PhalconValidators\NumericValidator (
+                [
+                    'allowSign' => true,                                           // Optional, default: false
+                    'allowFloat' => true,                                           // Optional, default: false
+                    'max' => 10         ,                                           // Optional
+                    'message' => 'Only numeric (0-9) characters are allowed.',      // Optional
+                    'messageMinimum' => 'The value must be at least 2',             // Optional
+                    'messageMaximum' => 'The value must be lower than 10'           // Optional
+                ]
+            )
+        );
+
+        $messages = $validation->validate($data);
+        $this->assertEquals(0, count($messages));
+    }
+
+    public function testNumericValidatorFloatFailing()
+    {
+        $data['number'] = '5.3.1';
+
+        $validation = new Validation();
+
+        $validation->add(
+            'number',
+            new \MicheleAngioni\PhalconValidators\NumericValidator (
+                [
+                    'allowFloat' => true,                                           // Optional, default: false
+                    'min' => 2,                                                     // Optional
+                    'max' => 10         ,                                           // Optional
+                    'message' => 'Only numeric (0-9) characters are allowed.',      // Optional
+                    'messageMinimum' => 'The value must be at least 2',             // Optional
+                    'messageMaximum' => 'The value must be lower than 10'           // Optional
+                ]
+            )
+        );
+
+        $messages = $validation->validate($data);
+        $this->assertEquals(1, count($messages));
+    }
+
+    public function testNumericValidatorFloatFailingSign()
+    {
+        $data['number'] = '-5.3.1';
+
+        $validation = new Validation();
+
+        $validation->add(
+            'number',
+            new \MicheleAngioni\PhalconValidators\NumericValidator (
+                [
+                    'allowFloat' => true,                                           // Optional, default: false
+                    'min' => 2,                                                     // Optional
+                    'max' => 10         ,                                           // Optional
+                    'message' => 'Only numeric (0-9) characters are allowed.',      // Optional
+                    'messageMinimum' => 'The value must be at least 2',             // Optional
+                    'messageMaximum' => 'The value must be lower than 10'           // Optional
+                ]
+            )
+        );
+
+        $messages = $validation->validate($data);
+        $this->assertEquals(1, count($messages));
     }
 
     public function testAlphaNumericValidatorOk()
@@ -449,4 +592,5 @@ class ValidatorsTest extends TestCase
         $messages = $validation->validate($data);
         $this->assertEquals(1, count($messages));
     }
+
 }

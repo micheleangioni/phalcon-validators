@@ -27,8 +27,11 @@ class NumericValidator extends Validator implements ValidatorInterface
         $allowFloat = (bool)$this->getOption('allowFloat');
         $allowFloat = $allowFloat ? '.,' : '';
 
+        $allowSign = (bool)$this->getOption('allowSign');
+        $allowSign = $allowSign ? '[-+]?' : '';
+
         if ($allowFloat) {
-            if (!preg_match('/^([0-9.,])+$/u', (string)$value)) {
+            if (!preg_match('/^(^' . $allowSign . '[0-9]*\.?[0-9])+$/u', (string)$value)) {
 
                 $message = $this->getOption('message',
                     'The value can contain only numeric (0-9), comma(,) and dot(.) characters');
@@ -38,7 +41,7 @@ class NumericValidator extends Validator implements ValidatorInterface
                 return false;
             }
         } else {
-            if (!preg_match('/^([0-9])+$/u', $value)) {
+            if (!preg_match('/^(' . $allowSign . '[0-9])+$/u', $value)) {
 
                 $message = $this->getOption('message',
                     'The value can contain only numeric (0-9) characters');
