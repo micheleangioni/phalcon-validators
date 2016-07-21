@@ -210,7 +210,7 @@ class ValidatorsTest extends TestCase
 
     public function testNumericValidatorFloatOkSignPlus()
     {
-        $data['number'] = +5.3;
+        $data['number'] = +5.362;
 
         $validation = new Validation();
 

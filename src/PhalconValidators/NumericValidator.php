@@ -32,7 +32,7 @@ class NumericValidator extends Validator implements ValidatorInterface
         $allowSignMessage = $allowSign ? 'signed' : 'unsigned';
 
         if ($allowFloat) {
-            if (!preg_match('/^(^' . $allowSign . '[0-9]*\.?[0-9])+$/u', (string)$value)) {
+            if (!preg_match('/^(^' . $allowSign . '[0-9]*\.?[0-9]+)+$/u', (string)$value)) {
 
                 $message = $this->getOption('message',
                     'The value must be a valid ' . $allowSignMessage . ' floating number');
