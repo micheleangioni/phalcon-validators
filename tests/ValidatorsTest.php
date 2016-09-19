@@ -557,7 +557,7 @@ class ValidatorsTest extends TestCase
             'text',
             new \MicheleAngioni\PhalconValidators\AlphaCompleteValidator (
                 [
-                    'allowPipe' => true ,                                                       // Optional
+                    'allowPipes' => true,                                                       // Optional
                     'min' => 5,                                                                 // Optional
                     'max' => 100,                                                               // Optional
                     'message' => 'Validation failed.',                                          // Optional
