@@ -6,7 +6,7 @@ Phalcon Validators adds several new validators to the few default ones present i
  
 ## Installation
 
-Support can be installed through Composer, just include `"michele-angioni/phalcon-validators": "~1.1"` to your composer.json and run `composer update` or `composer install`.
+Support can be installed through Composer, just include `"michele-angioni/phalcon-validators": "~1.2"` to your composer.json and run `composer update` or `composer install`.
 
 ## Usage
 
