@@ -26,15 +26,21 @@ class AlphaCompleteValidator extends Validator implements ValidatorInterface
         $allowPipes = (bool)$this->getOption('allowPipes');
         $allowPipes = $allowPipes ? '|' : '';
 
-        if (!preg_match('/^([-\p{L}*0-9_+!.,:\/;' . $allowPipes . '\\?&\(\)\[\]\{\}\'\"\s])+$/u', $value)) {
+        $allowUrlChars = (bool)$this->getOption('allowUrlChars');
+        $allowUrlChars = $allowUrlChars ? '=#' : '';
+
+        if (!preg_match('/^([-\p{L}*0-9_+!.,:\/;' . $allowPipes . $allowUrlChars . '\\?&\(\)\[\]\{\}\'\"\s])+$/u', $value)) {
+            $message = 'The value can contain only alphanumeric, underscore, white spaces, slashes, apostrophes, brackets, punctuation characters';
 
             if ($allowPipes) {
-                $message = $this->getOption('message',
-                    'The value can contain only alphanumeric, underscore, white spaces, slashes, pipes, apostrophes, brackets and punctuation characters');
-            } else {
-                $message = $this->getOption('message',
-                    'The value can contain only alphanumeric, underscore, white spaces, slashes, apostrophes, brackets and punctuation characters');
+                $message .= ', pipes';
             }
+
+            if ($allowUrlChars) {
+                $message .= ', equals and hashtags';
+            }
+
+            $message = $this->getOption('message', $message);
 
             $validator->appendMessage(new Message($message, $attribute, 'AlphaComplete'));
 
