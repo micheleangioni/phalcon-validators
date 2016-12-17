@@ -605,7 +605,7 @@ class ValidatorsTest extends TestCase
             'text',
             new \MicheleAngioni\PhalconValidators\AlphaCompleteValidator (
                 [
-                    'allowBackslaches' => true,                                                       // Optional
+                    'allowBackslashes' => true,                                                       // Optional
                     'min' => 5,                                                                 // Optional
                     'max' => 100,                                                               // Optional
                     'message' => 'Validation failed.',                                          // Optional

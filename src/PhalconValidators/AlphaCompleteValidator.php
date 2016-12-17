@@ -26,7 +26,7 @@ class AlphaCompleteValidator extends Validator implements ValidatorInterface
         $allowPipes = (bool)$this->getOption('allowPipes');
         $allowPipes = $allowPipes ? '|' : '';
 
-        $allowBlackSlashes = (bool)$this->getOption('allowBackslaches');
+        $allowBlackSlashes = (bool)$this->getOption('allowBackslashes');
         $allowBlackSlashes = $allowBlackSlashes ? '\\\\' : '';
 
         $allowUrlChars = (bool)$this->getOption('allowUrlChars');
