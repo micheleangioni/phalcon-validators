@@ -500,6 +500,30 @@ class ValidatorsTest extends TestCase
         $this->assertEquals(1, count($messages));
     }
 
+    public function testNamesValidatorFailingBackslash()
+    {
+        $data['text'] = 'R1ch4rd F3ynm4n \!';
+
+        $validation = new Validation();
+
+        $validation->add(
+            'text',
+            new \MicheleAngioni\PhalconValidators\AlphaNamesValidator (
+                [
+                    'numbers' => true,                                                         // Optional, default false
+                    'min' => 5,                                                                 // Optional
+                    'max' => 10,                                                               // Optional
+                    'message' => 'Validation failed.',                                          // Optional
+                    'messageMinimum' => 'The value must contain at least 5 characters.',        // Optional
+                    'messageMaximum' => 'The value can contain maximum 100 characters.'         // Optional
+                ]
+            )
+        );
+
+        $messages = $validation->validate($data);
+        $this->assertEquals(1, count($messages));
+    }
+
     public function testNamesValidatorFailingSymbols()
     {
         $data['text'] = 'R1ch4rd F3ynm4n !';
@@ -558,6 +582,30 @@ class ValidatorsTest extends TestCase
             new \MicheleAngioni\PhalconValidators\AlphaCompleteValidator (
                 [
                     'allowPipes' => true,                                                       // Optional
+                    'min' => 5,                                                                 // Optional
+                    'max' => 100,                                                               // Optional
+                    'message' => 'Validation failed.',                                          // Optional
+                    'messageMinimum' => 'The value must contain at least 5 characters.',        // Optional
+                    'messageMaximum' => 'The value can contain maximum 100 characters.'         // Optional
+                ]
+            )
+        );
+
+        $messages = $validation->validate($data);
+        $this->assertEquals(0, count($messages));
+    }
+
+    public function testAlphaCompleteValidatorOkWithBackslackesh()
+    {
+        $data['text'] = "0123456789 abc ñ () [] ' \" _ !? .,:;" . '\_';
+
+        $validation = new Validation();
+
+        $validation->add(
+            'text',
+            new \MicheleAngioni\PhalconValidators\AlphaCompleteValidator (
+                [
+                    'allowBackslaches' => true,                                                       // Optional
                     'min' => 5,                                                                 // Optional
                     'max' => 100,                                                               // Optional
                     'message' => 'Validation failed.',                                          // Optional
