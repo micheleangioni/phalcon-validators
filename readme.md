@@ -156,7 +156,7 @@ if (count($messages)) {
 ### AlphaCompleteValidator
 
 The AlphaCompleteValidator allows for alphanumeric, underscore, white space, slash, apostrophe, round and square brackets/parentheses and punctuation characters.
-Optionally, it can allow also pipes (|) and Url Characters (equals (=) and hashtags (#)).
+Optionally, it can allow also pipes (|), backslashes (\) and Url Characters (equals (=) and hashtags (#)).
 Minimum and maximum string lengths can be specified.
 
 ```php
@@ -168,6 +168,7 @@ $validation->add(
     'text',
     new MicheleAngioni\PhalconValidators\AlphaCompleteValidator (
         [
+            'allowBackslashes' => true,                                                 // Optional
             'allowPipes' => true,                                                       // Optional
             'allowUrlChars' => true,                                                    // Optional
             'min' => 6,                                                                 // Optional
