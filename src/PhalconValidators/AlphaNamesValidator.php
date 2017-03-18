@@ -40,8 +40,6 @@ class AlphaNamesValidator extends Validator implements ValidatorInterface
             }
 
             $validator->appendMessage(new Message($message, $attribute, 'AlphaNames'));
-
-            return false;
         }
 
         if ($min = (int)$this->getOption('min')) {
@@ -50,8 +48,6 @@ class AlphaNamesValidator extends Validator implements ValidatorInterface
                     'The value must contain at least ' . $min . ' characters.');
 
                 $validator->appendMessage(new Message($messageMin, $attribute, 'AlphaNames'));
-
-                return false;
             }
         }
 
@@ -61,9 +57,11 @@ class AlphaNamesValidator extends Validator implements ValidatorInterface
                     'The value can contain maximum ' . $max . ' characters.');
 
                 $validator->appendMessage(new Message($messageMax, $attribute, 'AlphaNames'));
-
-                return false;
             }
+        }
+
+        if (count($validator)) {
+            return false;
         }
 
         return true;

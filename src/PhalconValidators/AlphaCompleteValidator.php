@@ -50,8 +50,6 @@ class AlphaCompleteValidator extends Validator implements ValidatorInterface
             $message = $this->getOption('message', $message);
 
             $validator->appendMessage(new Message($message, $attribute, 'AlphaComplete'));
-
-            return false;
         }
 
         if ($min = (int)$this->getOption('min')) {
@@ -60,8 +58,6 @@ class AlphaCompleteValidator extends Validator implements ValidatorInterface
                     'The value must contain at least ' . $min . ' characters.');
 
                 $validator->appendMessage(new Message($messageMin, $attribute, 'AlphaComplete'));
-
-                return false;
             }
         }
 
@@ -71,9 +67,11 @@ class AlphaCompleteValidator extends Validator implements ValidatorInterface
                     'The value can contain maximum ' . $max . ' characters.');
 
                 $validator->appendMessage(new Message($messageMax, $attribute, 'AlphaComplete'));
-
-                return false;
             }
+        }
+
+        if (count($validator)) {
+            return false;
         }
 
         return true;

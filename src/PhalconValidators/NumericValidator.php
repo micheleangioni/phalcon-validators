@@ -38,8 +38,6 @@ class NumericValidator extends Validator implements ValidatorInterface
                     'The value must be a valid ' . $allowSignMessage . ' floating number');
 
                 $validator->appendMessage(new Message($message, $attribute, 'Numeric'));
-
-                return false;
             }
         } else {
             if (!preg_match('/^(' . $allowSign . '[0-9])+$/u', $value)) {
@@ -48,8 +46,6 @@ class NumericValidator extends Validator implements ValidatorInterface
                     'The value must be a valid ' . $allowSignMessage . ' integer number');
 
                 $validator->appendMessage(new Message($message, $attribute, 'Numeric'));
-
-                return false;
             }
         }
 
@@ -59,8 +55,6 @@ class NumericValidator extends Validator implements ValidatorInterface
                     'The value must be at least ' . $min);
 
                 $validator->appendMessage(new Message($messageMin, $attribute, 'Numeric'));
-
-                return false;
             }
         }
 
@@ -70,9 +64,11 @@ class NumericValidator extends Validator implements ValidatorInterface
                     'The value must be lower than ' . $max);
 
                 $validator->appendMessage(new Message($messageMax, $attribute, 'Numeric'));
-
-                return false;
             }
+        }
+
+        if (count($validator)) {
+            return false;
         }
 
         return true;
