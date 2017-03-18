@@ -94,7 +94,7 @@ class ValidatorsTest extends TestCase
 
     public function testNumericValidatorFailingSign()
     {
-        $data['number'] = -10;
+        $data['number'] = 1;
 
         $validation = new Validation();
 
@@ -301,7 +301,7 @@ class ValidatorsTest extends TestCase
         );
 
         $messages = $validation->validate($data);
-        $this->assertEquals(1, count($messages));
+        $this->assertEquals(2, count($messages));
     }
 
     public function testAlphaNumericValidatorOk()
@@ -379,7 +379,7 @@ class ValidatorsTest extends TestCase
         $this->assertEquals(1, count($messages));
     }
 
-    public function testAlphaNumericValidatorFailingLength()
+    public function testAlphaNumericValidatorFailingLengthAndUnderscore()
     {
         $data['text'] = '0123456789 abcdefghijklmnopqrstuvz ñ _';
 
@@ -401,7 +401,7 @@ class ValidatorsTest extends TestCase
         );
 
         $messages = $validation->validate($data);
-        $this->assertEquals(1, count($messages));
+        $this->assertEquals(2, count($messages));
     }
 
     public function testNamesValidatorOk()
@@ -476,7 +476,7 @@ class ValidatorsTest extends TestCase
         $this->assertEquals(1, count($messages));
     }
 
-    public function testNamesValidatorFailingLength()
+    public function testNamesValidatorFailingLengthAndNumbers()
     {
         $data['text'] = 'R1ch4rd F3ynm4n';
 
@@ -497,10 +497,10 @@ class ValidatorsTest extends TestCase
         );
 
         $messages = $validation->validate($data);
-        $this->assertEquals(1, count($messages));
+        $this->assertEquals(2, count($messages));
     }
 
-    public function testNamesValidatorFailingBackslash()
+    public function testNamesValidatorFailingLengthAndBackslash()
     {
         $data['text'] = 'R1ch4rd F3ynm4n \!';
 
@@ -521,10 +521,10 @@ class ValidatorsTest extends TestCase
         );
 
         $messages = $validation->validate($data);
-        $this->assertEquals(1, count($messages));
+        $this->assertEquals(2, count($messages));
     }
 
-    public function testNamesValidatorFailingSymbols()
+    public function testNamesValidatorFailingLenghtAndSymbols()
     {
         $data['text'] = 'R1ch4rd F3ynm4n !';
 
@@ -545,7 +545,7 @@ class ValidatorsTest extends TestCase
         );
 
         $messages = $validation->validate($data);
-        $this->assertEquals(1, count($messages));
+        $this->assertEquals(2, count($messages));
     }
 
     public function testAlphaCompleteValidatorOk()
