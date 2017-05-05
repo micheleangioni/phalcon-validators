@@ -32,8 +32,10 @@ class AlphaCompleteValidator extends Validator implements ValidatorInterface
         $allowUrlChars = (bool)$this->getOption('allowUrlChars');
         $allowUrlChars = $allowUrlChars ? '=#' : '';
 
-        if (!preg_match('/^([-\p{L}*0-9_+!.,:\/;' . $allowPipes . $allowBlackSlashes . $allowUrlChars . '?&\(\)\[\]\{\}\'\"\s])+$/u', $value)) {
-            $message = 'The value can contain only alphanumeric, underscore, white spaces, slashes, apostrophes, brackets, punctuation characters';
+        if (!preg_match('/^([-\p{L}*0-9_+!.,:\/;' . $allowPipes . $allowBlackSlashes . $allowUrlChars .
+                '?&\(\)\[\]\{\}\'\"\s])+$/u', $value)) {
+            $message = 'The value can contain only alphanumeric, underscore, white spaces, slashes, apostrophes, '
+                . 'brackets, punctuation characters';
 
             if ($allowPipes) {
                 $message .= ', pipes';
@@ -54,8 +56,10 @@ class AlphaCompleteValidator extends Validator implements ValidatorInterface
 
         if ($min = (int)$this->getOption('min')) {
             if (strlen($value) < $min) {
-                $messageMin = $this->getOption('messageMinimum',
-                    'The value must contain at least ' . $min . ' characters.');
+                $messageMin = $this->getOption(
+                    'messageMinimum',
+                    'The value must contain at least ' . $min . ' characters.'
+                );
 
                 $validator->appendMessage(new Message($messageMin, $attribute, 'AlphaComplete'));
             }
@@ -63,8 +67,10 @@ class AlphaCompleteValidator extends Validator implements ValidatorInterface
 
         if ($max = (int)$this->getOption('max')) {
             if (strlen($value) > $max) {
-                $messageMax = $this->getOption('messageMaximum',
-                    'The value can contain maximum ' . $max . ' characters.');
+                $messageMax = $this->getOption(
+                    'messageMaximum',
+                    'The value can contain maximum ' . $max . ' characters.'
+                );
 
                 $validator->appendMessage(new Message($messageMax, $attribute, 'AlphaComplete'));
             }

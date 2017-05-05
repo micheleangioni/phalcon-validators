@@ -28,14 +28,15 @@ class AlphaNamesValidator extends Validator implements ValidatorInterface
         $numbers = $numbers ? '0-9' : '';
 
         if (!preg_match('/^([-\p{L}' . $numbers . '\'_\s])+$/u', $value)) {
-
             $message = $this->getOption('message');
 
             if (!$message) {
                 if ($numbers) {
-                    $message = 'The value can contain only alphanumeric, menus, apostrophe, underscore and white space characters';
+                    $message = 'The value can contain only alphanumeric, menus, apostrophe, underscore and '
+                        + 'white space characters';
                 } else {
-                    $message = 'The value can contain only alphabetic, menus, apostrophe, underscore and white space characters';
+                    $message = 'The value can contain only alphabetic, menus, apostrophe, underscore and '
+                        + 'white space characters';
                 }
             }
 
@@ -44,8 +45,10 @@ class AlphaNamesValidator extends Validator implements ValidatorInterface
 
         if ($min = (int)$this->getOption('min')) {
             if (strlen($value) < $min) {
-                $messageMin = $this->getOption('messageMinimum',
-                    'The value must contain at least ' . $min . ' characters.');
+                $messageMin = $this->getOption(
+                    'messageMinimum',
+                    'The value must contain at least ' . $min . ' characters.'
+                );
 
                 $validator->appendMessage(new Message($messageMin, $attribute, 'AlphaNames'));
             }
@@ -53,8 +56,10 @@ class AlphaNamesValidator extends Validator implements ValidatorInterface
 
         if ($max = (int)$this->getOption('max')) {
             if (strlen($value) > $max) {
-                $messageMax = $this->getOption('messageMaximum',
-                    'The value can contain maximum ' . $max . ' characters.');
+                $messageMax = $this->getOption(
+                    'messageMaximum',
+                    'The value can contain maximum ' . $max . ' characters.'
+                );
 
                 $validator->appendMessage(new Message($messageMax, $attribute, 'AlphaNames'));
             }
