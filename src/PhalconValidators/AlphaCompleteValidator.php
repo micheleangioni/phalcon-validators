@@ -26,19 +26,26 @@ class AlphaCompleteValidator extends Validator implements ValidatorInterface
         $allowPipes = (bool)$this->getOption('allowPipes');
         $allowPipes = $allowPipes ? '|' : '';
 
+        $allowAt = (bool)$this->getOption('allowAt');
+        $allowAt = $allowAt ? '@' : '';
+
         $allowBlackSlashes = (bool)$this->getOption('allowBackslashes');
         $allowBlackSlashes = $allowBlackSlashes ? '\\\\' : '';
 
         $allowUrlChars = (bool)$this->getOption('allowUrlChars');
         $allowUrlChars = $allowUrlChars ? '=#' : '';
 
-        if (!preg_match('/^([-\p{L}*0-9_+!.,:\/;' . $allowPipes . $allowBlackSlashes . $allowUrlChars .
-                '?&\(\)\[\]\{\}\'\"\s])+$/u', $value)) {
+        if (!preg_match('/^([-\p{L}*0-9_+!.,:\/;' . $allowPipes . $allowAt . $allowBlackSlashes .
+                $allowUrlChars . '?&\(\)\[\]\{\}\'\"\s])+$/u', $value)) {
             $message = 'The value can contain only alphanumeric, underscore, white spaces, slashes, apostrophes, '
                 . 'brackets, punctuation characters';
 
             if ($allowPipes) {
                 $message .= ', pipes';
+            }
+
+            if ($allowAt) {
+                $message .= ', AT (@)';
             }
 
             if ($allowBlackSlashes) {
