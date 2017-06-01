@@ -1,12 +1,18 @@
 # Phalcon Validators
 
+[![License](https://poser.pugx.org/michele-angioni/phalcon-validators/license)](https://packagist.org/packages/michele-angioni/phalcon-validators)
+[![Latest Stable Version](https://poser.pugx.org/michele-angioni/phalcon-validators/v/stable)](https://packagist.org/packages/michele-angioni/phalcon-validators)
+[![Latest Unstable Version](https://poser.pugx.org/michele-angioni/phalcon-validators/v/unstable)](https://packagist.org/packages/michele-angioni/phalcon-validators)
+[![Build Status](https://travis-ci.org/micheleangioni/phalcon-validators.svg)](https://travis-ci.org/micheleangioni/phalcon-validators)
+
+
 ## Introduction
 
 Phalcon Validators adds several new validators to the few default ones present in Phalcon 2.
  
 ## Installation
 
-Support can be installed through Composer, just include `"michele-angioni/phalcon-validators": "~1.2"` to your composer.json and run `composer update` or `composer install`.
+Support can be installed through Composer, just include `"michele-angioni/phalcon-validators": "~1.5"` to your composer.json and run `composer update` or `composer install`.
 
 ## Usage
 
