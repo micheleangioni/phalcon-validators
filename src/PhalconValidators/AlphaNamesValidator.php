@@ -33,10 +33,10 @@ class AlphaNamesValidator extends Validator implements ValidatorInterface
             if (!$message) {
                 if ($numbers) {
                     $message = 'The value can contain only alphanumeric, menus, apostrophe, underscore and '
-                        + 'white space characters';
+                        . 'white space characters';
                 } else {
                     $message = 'The value can contain only alphabetic, menus, apostrophe, underscore and '
-                        + 'white space characters';
+                        . 'white space characters';
                 }
             }
 
