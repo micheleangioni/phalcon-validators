@@ -32,11 +32,14 @@ class AlphaCompleteValidator extends Validator implements ValidatorInterface
         $allowBlackSlashes = (bool)$this->getOption('allowBackslashes');
         $allowBlackSlashes = $allowBlackSlashes ? '\\\\' : '';
 
+        $allowPercentages = (bool)$this->getOption('allowPercentages');
+        $allowPercentages = $allowPercentages ? '%' : '';
+
         $allowUrlChars = (bool)$this->getOption('allowUrlChars');
         $allowUrlChars = $allowUrlChars ? '=#' : '';
 
         if (!preg_match('/^([-\p{L}*0-9_+!.,:\/;' . $allowPipes . $allowAt . $allowBlackSlashes .
-                $allowUrlChars . '?&\(\)\[\]\{\}\'\"\s])+$/u', $value)) {
+                $allowUrlChars . $allowPercentages .'?&\(\)\[\]\{\}\'\"\s])+$/u', $value)) {
             $message = 'The value can contain only alphanumeric, underscore, white spaces, slashes, apostrophes, '
                 . 'brackets, punctuation characters';
 
@@ -50,6 +53,10 @@ class AlphaCompleteValidator extends Validator implements ValidatorInterface
 
             if ($allowBlackSlashes) {
                 $message .= ', backslashes';
+            }
+
+            if ($allowPercentages) {
+                $message .= ', percentages';
             }
 
             if ($allowUrlChars) {

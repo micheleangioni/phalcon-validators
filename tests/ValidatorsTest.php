@@ -619,6 +619,30 @@ class ValidatorsTest extends TestCase
         $this->assertEquals(0, count($messages));
     }
 
+    public function testAlphaCompleteValidatorOkWithPercentage()
+    {
+        $data['text'] = "0123456789 abc ñ () [] ' \" _ !? .,:;%";
+
+        $validation = new Validation();
+
+        $validation->add(
+            'text',
+            new \MicheleAngioni\PhalconValidators\AlphaCompleteValidator (
+                [
+                    'allowPercentages' => true,                                                 // Optional
+                    'min' => 5,                                                                 // Optional
+                    'max' => 100,                                                               // Optional
+                    'message' => 'Validation failed.',                                          // Optional
+                    'messageMinimum' => 'The value must contain at least 5 characters.',        // Optional
+                    'messageMaximum' => 'The value can contain maximum 100 characters.'         // Optional
+                ]
+            )
+        );
+
+        $messages = $validation->validate($data);
+        $this->assertEquals(0, count($messages));
+    }
+
     public function testAlphaCompleteValidatorFailingWithAt()
     {
         $data['text'] = "0123456789 abc ñ () [] ' \" _ !? .,:;@";
@@ -642,7 +666,30 @@ class ValidatorsTest extends TestCase
         $this->assertEquals(1, count($messages));
     }
 
-    public function testAlphaCompleteValidatorOkWithBackslackesh()
+    public function testAlphaCompleteValidatorFailingWithPercentage()
+    {
+        $data['text'] = "0123456789 abc ñ () [] ' \" _ !? .,:;%";
+
+        $validation = new Validation();
+
+        $validation->add(
+            'text',
+            new \MicheleAngioni\PhalconValidators\AlphaCompleteValidator (
+                [
+                    'min' => 5,                                                                 // Optional
+                    'max' => 100,                                                               // Optional
+                    'message' => 'Validation failed.',                                          // Optional
+                    'messageMinimum' => 'The value must contain at least 5 characters.',        // Optional
+                    'messageMaximum' => 'The value can contain maximum 100 characters.'         // Optional
+                ]
+            )
+        );
+
+        $messages = $validation->validate($data);
+        $this->assertEquals(1, count($messages));
+    }
+
+    public function testAlphaCompleteValidatorOkWithBackslashes()
     {
         $data['text'] = "0123456789 abc ñ () [] ' \" _ !? .,:;" . '\_';
 
