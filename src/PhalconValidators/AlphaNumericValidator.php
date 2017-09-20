@@ -31,19 +31,28 @@ class AlphaNumericValidator extends Validator implements ValidatorInterface
         $underscore = (bool)$this->getOption('underscore');
         $underscore = $underscore ? '_' : '';
 
-        if (!preg_match('/^([\p{L}0-9' . $whiteSpace . $underscore . '])+$/u', $value)) {
+        $minus = (bool)$this->getOption('minus');
+        $minus = $minus ? '-' : '';
+
+        if (!preg_match('/^([\p{L}0-9' . $whiteSpace . $underscore . $minus . '])+$/u', $value)) {
             $message = $this->getOption('message');
 
             if (!$message) {
-                if ($whiteSpace && $underscore) {
-                    $message = 'The value can contain only alphanumeric, underscore and white space characters';
-                } elseif ($whiteSpace) {
-                    $message = 'The value can contain only alphanumeric and white space characters';
-                } elseif ($underscore) {
-                    $message = 'The value can contain only alphanumeric and underscore characters';
-                } else {
-                    $message = 'The value can contain only alphanumeric characters';
+                $message = 'The value can contain only alphanumeric';
+
+                if ($whiteSpace) {
+                    $message .= ', spaces';
                 }
+
+                if ($underscore) {
+                    $message .= ', underscores';
+                }
+
+                if ($minus) {
+                    $message .= ', minuses';
+                }
+
+                $message .= ' characters.';
             }
 
             $validator->appendMessage(new Message($message, $attribute, 'AlphaNumeric'));

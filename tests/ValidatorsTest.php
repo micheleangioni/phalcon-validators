@@ -404,6 +404,58 @@ class ValidatorsTest extends TestCase
         $this->assertEquals(2, count($messages));
     }
 
+    public function testAlphaNumericValidatorMinusFailing()
+    {
+        $data['text'] = '0123456789 abcdefghijklmnopqrst _-';
+
+        $validation = new Validation();
+
+        $validation->add(
+            'text',
+            new \MicheleAngioni\PhalconValidators\AlphaNumericValidator (
+                [
+                    'whiteSpace' => true,                                                       // Optional, default false
+                    'underscore' => true,                                                       // Optional, default false
+                    'minus' => false,                                                           // Optional, default false
+                    'min' => 5,                                                                 // Optional
+                    'max' => 100,                                                               // Optional
+                    'message' => 'Validation failed.',                                          // Optional
+                    'messageMinimum' => 'The value must contain at least 5 characters.',        // Optional
+                    'messageMaximum' => 'The value can contain maximum 100 characters.'         // Optional
+                ]
+            )
+        );
+
+        $messages = $validation->validate($data);
+        $this->assertEquals(1, count($messages));
+    }
+
+    public function testAlphaNumericValidatorMinusOk()
+    {
+        $data['text'] = '0123456789 abcdefghijklmnopqrst _-';
+
+        $validation = new Validation();
+
+        $validation->add(
+            'text',
+            new \MicheleAngioni\PhalconValidators\AlphaNumericValidator (
+                [
+                    'whiteSpace' => true,                                                       // Optional, default false
+                    'underscore' => true,                                                       // Optional, default false
+                    'minus' => true,                                                            // Optional, default false
+                    'min' => 5,                                                                 // Optional
+                    'max' => 100,                                                               // Optional
+                    'message' => 'Validation failed.',                                          // Optional
+                    'messageMinimum' => 'The value must contain at least 5 characters.',        // Optional
+                    'messageMaximum' => 'The value can contain maximum 100 characters.'         // Optional
+                ]
+            )
+        );
+
+        $messages = $validation->validate($data);
+        $this->assertEquals(0, count($messages));
+    }
+
     public function testNamesValidatorOk()
     {
         $data['text'] = 'Richard Feynman';
