@@ -12,7 +12,7 @@ Phalcon Validators adds several new validators to the few default ones present i
  
 ## Installation
 
-Support can be installed through Composer, just include `"michele-angioni/phalcon-validators": "~1.5"` to your composer.json and run `composer update` or `composer install`.
+Support can be installed through Composer, just include `"michele-angioni/phalcon-validators": "~1.7"` to your composer.json and run `composer update` or `composer install`.
 
 ## Usage
 
@@ -91,7 +91,7 @@ if (count($messages)) {
         
 ### AlphaNumericValidator
 
-The AlphaNumericValidator allows for alphanumeric characters. Optionally, it can allow underscores and white spaces.
+The AlphaNumericValidator allows for alphanumeric characters. Optionally, it can allow underscores, minuses and white spaces.
 Minimum and maximum string lengths can be specified.
 
 ```php
@@ -105,6 +105,7 @@ $validation->add(
         [
             'whiteSpace' => true,                                                       // Optional, default false
             'underscore' => true,                                                       // Optional, default false
+            'minus' => true,                                                            // Optional, default false
             'min' => 6,                                                                 // Optional
             'max' => 30,                                                                // Optional     
             'message' => 'Validation failed.',                                          // Optional
