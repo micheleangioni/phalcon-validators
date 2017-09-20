@@ -8,7 +8,7 @@
 
 ## Introduction
 
-Phalcon Validators adds several new validators to the few default ones present in Phalcon 2.
+Phalcon Validators adds several new validators to the few default ones present in Phalcon.
  
 ## Installation
 
