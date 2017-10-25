@@ -44,8 +44,8 @@ class FileNameValidator extends Validator implements ValidatorInterface
                 $charMessage = 'letters';
             }
 
-            $message = 'The value can contain only ' . $charMessage . ', numbers, underscores, white spaces, '
-                . 'brackets, punctuation characters';
+            $message = 'The value must be a valid file name, including extension, and can contain only '
+                . $charMessage . ', numbers, underscores, minuses';
 
             if ($allowMultipleDots) {
                 $message .= ', dots';
