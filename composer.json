@@ -1,6 +1,6 @@
 {
     "name": "michele-angioni/phalcon-validators",
-    "description": "New advanced validators for Phalcon.",
+    "description": "New advanced validators for PHP Phalcon Framework.",
     "keywords": ["phalcon", "validators"],
     "license": "MIT",
     "authors": [
@@ -15,12 +15,13 @@
     },
     "require-dev": {
         "phalcon/incubator": "dev-master",
-        "phpunit/phpunit": "^4.8"
+        "phpunit/phpunit": "^5.7"
     },
     "autoload": {
         "psr-4": {
             "MicheleAngioni\\PhalconValidators\\": "src/PhalconValidators"
         }
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
