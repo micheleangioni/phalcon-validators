@@ -905,4 +905,190 @@ class ValidatorsTest extends TestCase
         $this->assertEquals(1, count($messages));
     }
 
+    public function testFileNameSimple()
+    {
+        $data['text'] = 'file_na-me.pdf';
+
+        $validation = new Validation();
+
+        $validation->add(
+            'text',
+            new \MicheleAngioni\PhalconValidators\FileNameValidator (
+                [
+                    'min' => 5,                                                                 // Optional
+                    'max' => 50,                                                                // Optional
+                    'message' => 'Validation failed.',                                          // Optional
+                    'messageMinimum' => 'The value must contain at least 5 characters.',        // Optional
+                    'messageMaximum' => 'The value can contain maximum 10 characters.'          // Optional
+                ]
+            )
+        );
+
+        $messages = $validation->validate($data);
+        $this->assertEquals(0, count($messages));
+    }
+
+    public function testFileNameSimpleFailDoublePoint()
+    {
+        $data['text'] = 'file.name.pdf';
+
+        $validation = new Validation();
+
+        $validation->add(
+            'text',
+            new \MicheleAngioni\PhalconValidators\FileNameValidator (
+                [
+                    'min' => 5,                                                                 // Optional
+                    'max' => 50,                                                                // Optional
+                    'message' => 'Validation failed.',                                          // Optional
+                    'messageMinimum' => 'The value must contain at least 5 characters.',        // Optional
+                    'messageMaximum' => 'The value can contain maximum 10 characters.'          // Optional
+                ]
+            )
+        );
+
+        $messages = $validation->validate($data);
+        $this->assertEquals(1, count($messages));
+    }
+
+    public function testFileNameSimpleFailCharacters()
+    {
+        $data['text'] = 'filenäme.pdf';
+
+        $validation = new Validation();
+
+        $validation->add(
+            'text',
+            new \MicheleAngioni\PhalconValidators\FileNameValidator (
+                [
+                    'min' => 5,                                                                 // Optional
+                    'max' => 50,                                                                // Optional
+                    'message' => 'Validation failed.',                                          // Optional
+                    'messageMinimum' => 'The value must contain at least 5 characters.',        // Optional
+                    'messageMaximum' => 'The value can contain maximum 10 characters.'          // Optional
+                ]
+            )
+        );
+
+        $messages = $validation->validate($data);
+        $this->assertEquals(1, count($messages));
+    }
+
+    public function testFileNameSimpleFailCharacters2()
+    {
+        $data['text'] = 'filename!.pdf';
+
+        $validation = new Validation();
+
+        $validation->add(
+            'text',
+            new \MicheleAngioni\PhalconValidators\FileNameValidator (
+                [
+                    'min' => 5,                                                                 // Optional
+                    'max' => 50,                                                                // Optional
+                    'message' => 'Validation failed.',                                          // Optional
+                    'messageMinimum' => 'The value must contain at least 5 characters.',        // Optional
+                    'messageMaximum' => 'The value can contain maximum 10 characters.'          // Optional
+                ]
+            )
+        );
+
+        $messages = $validation->validate($data);
+        $this->assertEquals(1, count($messages));
+    }
+
+    public function testFileNameSimpleFailSpace()
+    {
+        $data['text'] = 'file name.pdf';
+
+        $validation = new Validation();
+
+        $validation->add(
+            'text',
+            new \MicheleAngioni\PhalconValidators\FileNameValidator (
+                [
+                    'min' => 5,                                                                 // Optional
+                    'max' => 50,                                                                // Optional
+                    'message' => 'Validation failed.',                                          // Optional
+                    'messageMinimum' => 'The value must contain at least 5 characters.',        // Optional
+                    'messageMaximum' => 'The value can contain maximum 10 characters.'          // Optional
+                ]
+            )
+        );
+
+        $messages = $validation->validate($data);
+        $this->assertEquals(1, count($messages));
+    }
+
+    public function testFileNameSimpleOkSpace()
+    {
+        $data['text'] = 'file name.pdf';
+
+        $validation = new Validation();
+
+        $validation->add(
+            'text',
+            new \MicheleAngioni\PhalconValidators\FileNameValidator (
+                [
+                    'allowSpaces' => true,                                                      // Optional
+                    'min' => 5,                                                                 // Optional
+                    'max' => 50,                                                                // Optional
+                    'message' => 'Validation failed.',                                          // Optional
+                    'messageMinimum' => 'The value must contain at least 5 characters.',        // Optional
+                    'messageMaximum' => 'The value can contain maximum 10 characters.'          // Optional
+                ]
+            )
+        );
+
+        $messages = $validation->validate($data);
+        $this->assertEquals(0, count($messages));
+    }
+
+    public function testFileNameSimpleOkLatin()
+    {
+        $data['text'] = 'filenäme.pdf';
+
+        $validation = new Validation();
+
+        $validation->add(
+            'text',
+            new \MicheleAngioni\PhalconValidators\FileNameValidator (
+                [
+                    'allowAllLatin' => true,                                                    // Optional
+                    'min' => 5,                                                                 // Optional
+                    'max' => 50,                                                                // Optional
+                    'message' => 'Validation failed.',                                          // Optional
+                    'messageMinimum' => 'The value must contain at least 5 characters.',        // Optional
+                    'messageMaximum' => 'The value can contain maximum 10 characters.'          // Optional
+                ]
+            )
+        );
+
+        $messages = $validation->validate($data);
+        $this->assertEquals(0, count($messages));
+    }
+
+    public function testFileNameSimpleOkMultipleDots()
+    {
+        $data['text'] = 'file.name.pdf';
+
+        $validation = new Validation();
+
+        $validation->add(
+            'text',
+            new \MicheleAngioni\PhalconValidators\FileNameValidator (
+                [
+                    'allowMultipleDots' => true,                                                // Optional
+                    'min' => 5,                                                                 // Optional
+                    'max' => 50,                                                                // Optional
+                    'message' => 'Validation failed.',                                          // Optional
+                    'messageMinimum' => 'The value must contain at least 5 characters.',        // Optional
+                    'messageMaximum' => 'The value can contain maximum 10 characters.'          // Optional
+                ]
+            )
+        );
+
+        $messages = $validation->validate($data);
+        $this->assertEquals(0, count($messages));
+    }
 }
