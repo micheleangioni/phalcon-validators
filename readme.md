@@ -9,10 +9,12 @@
 ## Introduction
 
 Phalcon Validators adds several new validators to the few default ones present in Phalcon.
+
+PHP 7.1+ and Phalcon 3.1 are required.
  
 ## Installation
 
-Support can be installed through Composer, just include `"michele-angioni/phalcon-validators": "~1.8"` to your composer.json and run `composer update` or `composer install`.
+Support can be installed through Composer, just include `"michele-angioni/phalcon-validators": "~2.0"` to your composer.json and run `composer update` or `composer install`.
 
 ## Usage
 
