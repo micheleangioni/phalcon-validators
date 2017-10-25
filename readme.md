@@ -12,14 +12,14 @@ Phalcon Validators adds several new validators to the few default ones present i
  
 ## Installation
 
-Support can be installed through Composer, just include `"michele-angioni/phalcon-validators": "~1.7"` to your composer.json and run `composer update` or `composer install`.
+Support can be installed through Composer, just include `"michele-angioni/phalcon-validators": "~1.8"` to your composer.json and run `composer update` or `composer install`.
 
 ## Usage
 
 The new validators work in the same way the default validators do. 
 Just pass a new instance of the validator to the Phalcon `Validation` class, with the desired options, and then validate it.
  
-Available validators with practical example:
+Available validators with practical examples:
 
 ### IpValidator
 
@@ -198,7 +198,44 @@ if (count($messages)) {
 
 // Validation succeeded without errors
 ```
-        
+
+### FileNameValidator
+
+The FileNameValidator allows for a valid file name with extension, allowing simple letters, numbers underscores and minuses.
+Optionally, it can allow also all Latin characters, multiple dots and white spaces.
+Minimum and maximum string lengths can be specified.
+
+```php
+$data['text'] = $this->request->getPost('text');
+
+$validation = new Phalcon\Validation();
+
+$validation->add(
+    'text',
+    new MicheleAngioni\PhalconValidators\FileNameValidator (
+        [
+            'allowMultipleDots' => true,                                                // Optional
+            'allowAllLatin' => true,                                                    // Optional
+            'allowSpaces' => true,                                                      // Optional
+            'min' => 6,                                                                 // Optional
+            'max' => 30,                                                                // Optional
+            'message' => 'Validation failed.',                                          // Optional
+            'messageMinimum' => 'The value must contain at least 6 characters.',        // Optional
+            'messageMaximum' => 'The value can contain maximum 30 characters.'          // Optional
+        ]
+    )
+);
+
+$messages = $validation->validate($data);
+
+if (count($messages)) {
+    // Some error occurred, handle messages
+
+}
+
+// Validation succeeded without errors
+```
+
 ## Contribution guidelines
 
 Phalcon Validators follows PSR-1, PSR-2 and PSR-4 PHP coding standards, and semantic versioning.
