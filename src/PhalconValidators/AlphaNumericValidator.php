@@ -80,7 +80,7 @@ class AlphaNumericValidator extends Validator implements ValidatorInterface
             }
         }
 
-        if (count($validator)) {
+        if (count($validator->getMessages())) {
             return false;
         }
 
